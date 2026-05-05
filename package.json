@@ -1,0 +1,63 @@
+{
+	"name": "n8n-nodes-seleqt",
+	"version": "0.1.0",
+	"description": "n8n community node for Seleqt — the #1 lead generation tool. Connect Seleqt's lead generation, enrichment, campaign management, and inbox capabilities to your n8n workflows.",
+	"keywords": [
+		"n8n-community-node-package",
+		"n8n",
+		"seleqt",
+		"lead-generation",
+		"linkedin",
+		"outreach",
+		"automation",
+		"crm"
+	],
+	"license": "MIT",
+	"homepage": "https://seleqt.ai",
+	"author": {
+		"name": "Seleqt",
+		"email": "support@seleqt.ai"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AdilSeleqt/n8n-nodes-seleqt.git"
+	},
+	"engines": {
+		"node": ">=18.10"
+	},
+	"main": "index.js",
+	"scripts": {
+		"build": "npx rimraf dist && tsc && npm run copy:assets",
+		"copy:assets": "node -e \"const fs=require('fs'),path=require('path');function cp(s,d){if(!fs.existsSync(s))return;const st=fs.statSync(s);if(st.isDirectory()){fs.mkdirSync(d,{recursive:true});for(const f of fs.readdirSync(s))cp(path.join(s,f),path.join(d,f))}else if(/\\.(svg|png|json)$/.test(s)){fs.mkdirSync(path.dirname(d),{recursive:true});fs.copyFileSync(s,d)}}cp('nodes','dist/nodes');cp('credentials','dist/credentials');\"",
+		"dev": "tsc --watch",
+		"format": "prettier nodes credentials --write",
+		"lint": "eslint nodes credentials",
+		"lintfix": "eslint nodes credentials --fix",
+		"prepublishOnly": "npm run build && npm run lint"
+	},
+	"files": [
+		"dist"
+	],
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"credentials": [
+			"dist/credentials/SeleqtApi.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/Seleqt/Seleqt.node.js"
+		]
+	},
+	"devDependencies": {
+		"@types/node": "^20.11.0",
+		"@typescript-eslint/parser": "~7.15.0",
+		"eslint": "^8.57.0",
+		"eslint-plugin-n8n-nodes-base": "^1.16.3",
+		"n8n-workflow": "^2.16.0",
+		"prettier": "^3.2.5",
+		"rimraf": "^5.0.5",
+		"typescript": "^5.4.5"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	}
+}

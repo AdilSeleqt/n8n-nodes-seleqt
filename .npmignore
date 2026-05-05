@@ -1,0 +1,11 @@
+.eslintrc.js
+.prettierrc.js
+tsconfig.json
+.gitignore
+.git/
+node_modules/
+nodes/
+credentials/
+*.tsbuildinfo
+.vscode/
+.idea/
