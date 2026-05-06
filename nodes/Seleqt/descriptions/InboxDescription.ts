@@ -30,7 +30,7 @@ export const inboxOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/public/chats/{{$parameter.prospectId}}/send-message/',
+						url: '={{ "/public/chats/" + $parameter.prospectId + "/send-message/" }}',
 						body: {
 							message: '={{$parameter.message}}',
 						},

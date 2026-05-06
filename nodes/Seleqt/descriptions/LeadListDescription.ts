@@ -32,7 +32,7 @@ export const leadListOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/public/lead-lists/{{$parameter.leadListId}}/add-leads/',
+						url: '={{ "/public/lead-lists/" + $parameter.leadListId + "/add-leads/" }}',
 						body: {
 							prospect_ids: '={{$parameter.addProspectIds}}',
 							company_ids: '={{$parameter.addCompanyIds}}',
@@ -72,7 +72,7 @@ export const leadListOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/public/lead-lists/{{$parameter.leadListId}}/enrichment/',
+						url: '={{ "/public/lead-lists/" + $parameter.leadListId + "/enrichment/" }}',
 					},
 				},
 			},
@@ -84,7 +84,7 @@ export const leadListOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/public/lead-lists/{{$parameter.leadListId}}/leads/',
+						url: '={{ "/public/lead-lists/" + $parameter.leadListId + "/leads/" }}',
 					},
 				},
 			},
@@ -108,7 +108,7 @@ export const leadListOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/public/lead-lists/{{$parameter.leadListId}}/move-to-campaign/',
+						url: '={{ "/public/lead-lists/" + $parameter.leadListId + "/move-to-campaign/" }}',
 						body: {
 							campaign_id: '={{$parameter.targetCampaignId}}',
 							prospect_ids: '={{$parameter.moveProspectIds}}',

@@ -51,7 +51,7 @@ export const campaignOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/public/campaigns/{{$parameter.campaignId}}/',
+						url: '={{ "/public/campaigns/" + $parameter.campaignId + "/" }}',
 					},
 					output: {
 						postReceive: [
@@ -91,7 +91,7 @@ export const campaignOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/public/campaigns/{{$parameter.campaignId}}/analytics/',
+						url: '={{ "/public/campaigns/" + $parameter.campaignId + "/analytics/" }}',
 					},
 				},
 			},
@@ -103,7 +103,7 @@ export const campaignOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/public/campaigns/{{$parameter.campaignId}}/steps/',
+						url: '={{ "/public/campaigns/" + $parameter.campaignId + "/steps/" }}',
 					},
 					output: {
 						postReceive: [
@@ -123,7 +123,7 @@ export const campaignOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'PATCH',
-						url: '=/public/campaigns/{{$parameter.campaignId}}/',
+						url: '={{ "/public/campaigns/" + $parameter.campaignId + "/" }}',
 						// Empty placeholder — `updateFields` collection below
 						// merges its non-empty entries onto the request body
 						// via the `request.body` property routing.
