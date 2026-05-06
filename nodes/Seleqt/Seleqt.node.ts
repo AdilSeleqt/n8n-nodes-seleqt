@@ -1,18 +1,24 @@
 import type { INodeType, INodeTypeDescription } from 'n8n-workflow';
 
 import { campaignFields, campaignOperations } from './descriptions/CampaignDescription';
+import { leadListFields, leadListOperations } from './descriptions/LeadListDescription';
+import { prospectFields, prospectOperations } from './descriptions/ProspectDescription';
+import { inboxFields, inboxOperations } from './descriptions/InboxDescription';
 
 /**
  * Seleqt action node — declarative-style.
  *
- * v0.1 ships a single resource (`Campaign`) with one operation
- * (`Get Many`) so we can validate the auth + base URL plumbing
- * end-to-end before fanning out into the rest of the API surface
- * planned for SQ26-226.
+ * v0.2 surface (this file):
+ *  • Campaign — Get Many, Get, Create, Get Stats, Get Steps, Update
+ *  • Lead List — Get Many, Get Leads, Create, Add Leads, Move to
+ *    Campaign, Enrich
+ *  • Prospect — Search
+ *  • Inbox — Send Message
  *
- * Each new resource (Lead, Inbox, Enrichment, Workspace) lives in
- * its own description file and is appended to the property tree
- * here — the node class itself stays declarative-only.
+ * Each resource lives in its own description file under
+ * `descriptions/` so adding a new one (Workspace, Webhook, …) is a
+ * matter of importing two arrays here. The node class itself stays
+ * declarative-only — no programmatic execute() yet.
  */
 export class Seleqt implements INodeType {
 	description: INodeTypeDescription = {
@@ -52,11 +58,29 @@ export class Seleqt implements INodeType {
 						name: 'Campaign',
 						value: 'campaign',
 					},
+					{
+						name: 'Lead List',
+						value: 'leadList',
+					},
+					{
+						name: 'Prospect',
+						value: 'prospect',
+					},
+					{
+						name: 'Inbox',
+						value: 'inbox',
+					},
 				],
 				default: 'campaign',
 			},
 			...campaignOperations,
 			...campaignFields,
+			...leadListOperations,
+			...leadListFields,
+			...prospectOperations,
+			...prospectFields,
+			...inboxOperations,
+			...inboxFields,
 		],
 	};
 }

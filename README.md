@@ -2,7 +2,7 @@
 
 n8n community node for [Seleqt](https://seleqt.ai) — the #1 lead generation tool. Connect Seleqt's lead generation, enrichment, campaign management, and inbox capabilities to your n8n workflows.
 
-> **Status:** v0.1 (early access). Currently ships a single resource (`Campaign`) with `Get Many`. The full SQ26-226 surface (Lead CRUD, Inbox, Enrichment, Trigger node) lands in subsequent releases.
+> **Status:** v0.2 (early access). Action node covers Campaign + Lead List + Prospect + Inbox basics; the Trigger node and webhook events land in v0.4 once the backend webhook subscription system ships (SQ26-226 Ticket C).
 
 ## Installation
 
@@ -40,21 +40,34 @@ docker restart n8n-container
 4. Leave **Base URL** at the default (`https://api.seleqt.ai/api/v1`) unless you're on staging or self-hosted Seleqt. (`app.seleqt.ai` is the SPA frontend; the JSON API lives at `api.seleqt.ai`.)
 5. n8n's "Test" button confirms the key is live before you save.
 
-## Operations (v0.1)
+## Operations (v0.2)
 
 | Resource | Operation | API endpoint |
 |---|---|---|
 | Campaign | Get Many | `GET /public/campaigns/` |
+| Campaign | Get | `GET /public/campaigns/:id/` |
+| Campaign | Create | `POST /public/campaigns/` |
+| Campaign | Update | `PATCH /public/campaigns/:id/` |
+| Campaign | Get Stats | `GET /public/campaigns/:id/analytics/` |
+| Campaign | Get Steps | `GET /public/campaigns/:id/steps/` |
+| Lead List | Get Many | `GET /public/lead-lists/` |
+| Lead List | Get Leads | `GET /public/lead-lists/:id/leads/` |
+| Lead List | Create | `POST /public/lead-lists/` |
+| Lead List | Add Leads | `POST /public/lead-lists/:id/add-leads/` |
+| Lead List | Move to Campaign | `POST /public/lead-lists/:id/move-to-campaign/` |
+| Lead List | Enrich | `POST /public/lead-lists/:id/enrichment/` |
+| Prospect | Search | `POST /public/prospects/search/` |
+| Inbox | Send Message | `POST /public/chats/:prospect_id/send-message/` |
 
 ## Roadmap
 
 Tracked in [SQ26-226](https://github.com/AdilSeleqt/seleqt-sales/blob/main/docs/sq26-226-n8n-integration-plan.md):
 
-- v0.1 — Campaign Get Many (you are here)
-- v0.2 — Lead CRUD + Enrich, Campaign Add/Pause/Resume/Stats
-- v0.3 — Inbox + Workspace resources
-- v0.4 — Trigger node (webhook subscriptions)
-- v1.0 — n8n marketplace + partner verification
+- v0.1 — Campaign Get Many ✅
+- **v0.2 — Campaign + Lead List + Prospect + Inbox surface (you are here)**
+- v0.3 — Lead-level CRUD, Workspace resource (depends on Ticket B backend)
+- v0.4 — Trigger node + webhook subscriptions (depends on Ticket C backend)
+- v1.0 — n8n marketplace partner verification + 5 workflow templates
 
 ## Development
 
