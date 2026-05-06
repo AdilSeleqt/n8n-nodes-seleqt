@@ -34,8 +34,8 @@ export const leadListOperations: INodeProperties[] = [
 						method: 'POST',
 						url: '=/public/lead-lists/{{$parameter["leadListId"]}}/add-leads/',
 						body: {
-							prospect_ids: '={{$parameter["prospectIds"]}}',
-							company_ids: '={{$parameter["companyIds"]}}',
+							prospect_ids: '={{$parameter["addProspectIds"]}}',
+							company_ids: '={{$parameter["addCompanyIds"]}}',
 						},
 					},
 				},
@@ -110,8 +110,8 @@ export const leadListOperations: INodeProperties[] = [
 						method: 'POST',
 						url: '=/public/lead-lists/{{$parameter["leadListId"]}}/move-to-campaign/',
 						body: {
-							campaign_id: '={{$parameter["campaignId"]}}',
-							prospect_ids: '={{$parameter["prospectIds"]}}',
+							campaign_id: '={{$parameter["targetCampaignId"]}}',
+							prospect_ids: '={{$parameter["moveProspectIds"]}}',
 						},
 					},
 				},
@@ -173,9 +173,15 @@ export const leadListFields: INodeProperties[] = [
 	},
 
 	// ─── Add Leads ────────────────────────────────────────────
+	// Names are scoped (`addProspectIds` / `addCompanyIds`) rather than
+	// the natural `prospectIds` so they don't collide with the same
+	// concept in `moveToCampaign` below. n8n's parameter validator
+	// doesn't fully respect `displayOptions` when two properties share
+	// a name + `required`, which surfaces as a phantom "X is required"
+	// error on whichever variant the user sees first.
 	{
 		displayName: 'Prospect IDs',
-		name: 'prospectIds',
+		name: 'addProspectIds',
 		type: 'string',
 		default: '',
 		placeholder: '12345,12346,12347',
@@ -190,7 +196,7 @@ export const leadListFields: INodeProperties[] = [
 	},
 	{
 		displayName: 'Company IDs',
-		name: 'companyIds',
+		name: 'addCompanyIds',
 		type: 'string',
 		default: '',
 		placeholder: '8901,8902',
@@ -205,9 +211,12 @@ export const leadListFields: INodeProperties[] = [
 	},
 
 	// ─── Move to Campaign ─────────────────────────────────────
+	// `targetCampaignId` instead of `campaignId` to avoid the same
+	// validator collision that the Campaign resource's `campaignId`
+	// (Get / Get Stats / Get Steps / Update) would otherwise create.
 	{
 		displayName: 'Campaign ID',
-		name: 'campaignId',
+		name: 'targetCampaignId',
 		type: 'string',
 		required: true,
 		default: '',
@@ -222,7 +231,7 @@ export const leadListFields: INodeProperties[] = [
 	},
 	{
 		displayName: 'Prospect IDs',
-		name: 'prospectIds',
+		name: 'moveProspectIds',
 		type: 'string',
 		default: '',
 		placeholder: '12345,12346 (leave empty to move all in list)',
