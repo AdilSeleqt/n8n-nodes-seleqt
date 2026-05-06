@@ -30,7 +30,7 @@ export const campaignOperations: INodeProperties[] = [
 						method: 'POST',
 						url: '/public/campaigns/',
 						body: {
-							name: '={{$parameter["name"]}}',
+							name: '={{$parameter.name}}',
 						},
 					},
 					output: {
@@ -51,7 +51,7 @@ export const campaignOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/public/campaigns/{{$parameter["campaignId"]}}/',
+						url: '=/public/campaigns/{{$parameter.campaignId}}/',
 					},
 					output: {
 						postReceive: [
@@ -91,7 +91,7 @@ export const campaignOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/public/campaigns/{{$parameter["campaignId"]}}/analytics/',
+						url: '=/public/campaigns/{{$parameter.campaignId}}/analytics/',
 					},
 				},
 			},
@@ -103,7 +103,7 @@ export const campaignOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/public/campaigns/{{$parameter["campaignId"]}}/steps/',
+						url: '=/public/campaigns/{{$parameter.campaignId}}/steps/',
 					},
 					output: {
 						postReceive: [
@@ -123,7 +123,7 @@ export const campaignOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'PATCH',
-						url: '=/public/campaigns/{{$parameter["campaignId"]}}/',
+						url: '=/public/campaigns/{{$parameter.campaignId}}/',
 						// Empty placeholder — `updateFields` collection below
 						// merges its non-empty entries onto the request body
 						// via the `request.body` property routing.
@@ -146,11 +146,17 @@ export const campaignOperations: INodeProperties[] = [
 
 export const campaignFields: INodeProperties[] = [
 	// ─── Create ───────────────────────────────────────────────
+	// `required: true` is intentionally OFF here (and on every field
+	// scoped by displayOptions). Some n8n runtimes mis-validate
+	// scoped-required parameters and surface a phantom "X is required"
+	// error even when the field carries a value, blocking execution.
+	// The Seleqt API returns a clean 400 if a required field is empty,
+	// so server-side validation covers the same UX without the n8n
+	// quirk firing in our face.
 	{
 		displayName: 'Name',
 		name: 'name',
 		type: 'string',
-		required: true,
 		default: '',
 		placeholder: 'Q4 outbound — ICP A',
 		description: 'Display name for the new campaign. Seleqt automatically appends "(N)" if the name is taken.',
@@ -167,7 +173,6 @@ export const campaignFields: INodeProperties[] = [
 		displayName: 'Campaign ID',
 		name: 'campaignId',
 		type: 'string',
-		required: true,
 		default: '',
 		placeholder: '5339',
 		description: 'Numeric ID of the campaign — visible in the Seleqt URL or returned by Get Many',

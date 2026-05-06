@@ -32,10 +32,10 @@ export const leadListOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/public/lead-lists/{{$parameter["leadListId"]}}/add-leads/',
+						url: '=/public/lead-lists/{{$parameter.leadListId}}/add-leads/',
 						body: {
-							prospect_ids: '={{$parameter["addProspectIds"]}}',
-							company_ids: '={{$parameter["addCompanyIds"]}}',
+							prospect_ids: '={{$parameter.addProspectIds}}',
+							company_ids: '={{$parameter.addCompanyIds}}',
 						},
 					},
 				},
@@ -50,8 +50,8 @@ export const leadListOperations: INodeProperties[] = [
 						method: 'POST',
 						url: '/public/lead-lists/',
 						body: {
-							name: '={{$parameter["name"]}}',
-							search_type: '={{$parameter["searchType"]}}',
+							name: '={{$parameter.name}}',
+							search_type: '={{$parameter.searchType}}',
 						},
 					},
 					output: {
@@ -72,7 +72,7 @@ export const leadListOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/public/lead-lists/{{$parameter["leadListId"]}}/enrichment/',
+						url: '=/public/lead-lists/{{$parameter.leadListId}}/enrichment/',
 					},
 				},
 			},
@@ -84,7 +84,7 @@ export const leadListOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'GET',
-						url: '=/public/lead-lists/{{$parameter["leadListId"]}}/leads/',
+						url: '=/public/lead-lists/{{$parameter.leadListId}}/leads/',
 					},
 				},
 			},
@@ -108,10 +108,10 @@ export const leadListOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/public/lead-lists/{{$parameter["leadListId"]}}/move-to-campaign/',
+						url: '=/public/lead-lists/{{$parameter.leadListId}}/move-to-campaign/',
 						body: {
-							campaign_id: '={{$parameter["targetCampaignId"]}}',
-							prospect_ids: '={{$parameter["moveProspectIds"]}}',
+							campaign_id: '={{$parameter.targetCampaignId}}',
+							prospect_ids: '={{$parameter.moveProspectIds}}',
 						},
 					},
 				},
@@ -127,7 +127,6 @@ export const leadListFields: INodeProperties[] = [
 		displayName: 'Name',
 		name: 'name',
 		type: 'string',
-		required: true,
 		default: '',
 		placeholder: 'EU SaaS founders — Q4',
 		displayOptions: {
@@ -160,7 +159,6 @@ export const leadListFields: INodeProperties[] = [
 		displayName: 'Lead List ID',
 		name: 'leadListId',
 		type: 'string',
-		required: true,
 		default: '',
 		placeholder: '742',
 		description: 'Numeric ID of the lead list, returned by Get Many or Create',
@@ -218,7 +216,6 @@ export const leadListFields: INodeProperties[] = [
 		displayName: 'Campaign ID',
 		name: 'targetCampaignId',
 		type: 'string',
-		required: true,
 		default: '',
 		placeholder: '5339',
 		description: 'Destination campaign — prospects keep their data, just become campaign-scoped',

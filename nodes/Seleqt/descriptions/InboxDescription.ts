@@ -30,9 +30,9 @@ export const inboxOperations: INodeProperties[] = [
 				routing: {
 					request: {
 						method: 'POST',
-						url: '=/public/chats/{{$parameter["prospectId"]}}/send-message/',
+						url: '=/public/chats/{{$parameter.prospectId}}/send-message/',
 						body: {
-							message: '={{$parameter["message"]}}',
+							message: '={{$parameter.message}}',
 						},
 					},
 				},
@@ -43,11 +43,15 @@ export const inboxOperations: INodeProperties[] = [
 ];
 
 export const inboxFields: INodeProperties[] = [
+	// `required: true` left off intentionally — n8n's parameter
+	// validator mis-flags scoped-required fields with a phantom
+	// "X is required" error even when filled, blocking execution.
+	// The Seleqt API returns 400 for empty values so server-side
+	// validation covers the same UX without the n8n quirk.
 	{
 		displayName: 'Prospect ID',
 		name: 'prospectId',
 		type: 'string',
-		required: true,
 		default: '',
 		placeholder: '12345',
 		description: 'Numeric ID of the prospect to message',
@@ -62,7 +66,6 @@ export const inboxFields: INodeProperties[] = [
 		displayName: 'Message',
 		name: 'message',
 		type: 'string',
-		required: true,
 		default: '',
 		typeOptions: { rows: 4 },
 		description: 'Body of the message. Plain text or HTML — Seleqt strips HTML for LinkedIn channels automatically.',
