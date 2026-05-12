@@ -23,9 +23,6 @@ export class SeleqtApi implements ICredentialType {
 
 	displayName = 'Seleqt API';
 
-	// Aligns the help link with the in-app settings page that mints keys.
-	// Future SQ26-226 work moves this to docs.seleqt.ai once the API
-	// reference site is live.
 	documentationUrl = 'https://docs.seleqt.ai/api/authentication';
 
 	properties: INodeProperties[] = [

@@ -1,14 +1,5 @@
 import type { INodeProperties } from 'n8n-workflow';
 
-/**
- * Inbox resource — operations and fields.
- *
- * Wraps the chat send-message endpoint at
- * `POST /api/v1/public/chats/:prospect_id/send-message/`. Listing
- * messages and updating message status are pending Ticket B (the
- * public Inbox endpoints aren't shipped yet) — when those land, this
- * file gets two more entries.
- */
 export const inboxOperations: INodeProperties[] = [
 	{
 		displayName: 'Operation',
@@ -43,11 +34,7 @@ export const inboxOperations: INodeProperties[] = [
 ];
 
 export const inboxFields: INodeProperties[] = [
-	// `required: true` left off intentionally — n8n's parameter
-	// validator mis-flags scoped-required fields with a phantom
-	// "X is required" error even when filled, blocking execution.
-	// The Seleqt API returns 400 for empty values so server-side
-	// validation covers the same UX without the n8n quirk.
+	// required: true omitted on scoped fields — server returns 400 for empty values.
 	{
 		displayName: 'Prospect ID',
 		name: 'prospectId',

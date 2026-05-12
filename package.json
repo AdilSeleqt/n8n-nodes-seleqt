@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-seleqt",
-	"version": "0.2.3",
+	"version": "0.2.8",
 	"description": "n8n community node for Seleqt — the #1 lead generation tool. Connect Seleqt's lead generation, enrichment, campaign management, and inbox capabilities to your n8n workflows.",
 	"keywords": [
 		"n8n-community-node-package",
@@ -16,7 +16,7 @@
 	"homepage": "https://seleqt.ai",
 	"author": {
 		"name": "Seleqt",
-		"email": "support@seleqt.ai"
+		"email": "info@seleqt.ai"
 	},
 	"repository": {
 		"type": "git",
@@ -25,7 +25,7 @@
 	"engines": {
 		"node": ">=18.10"
 	},
-	"main": "index.js",
+	"main": "dist/nodes/Seleqt/Seleqt.node.js",
 	"scripts": {
 		"build": "npx rimraf dist && tsc && npm run copy:assets",
 		"copy:assets": "node -e \"const fs=require('fs'),path=require('path');function cp(s,d){if(!fs.existsSync(s))return;const st=fs.statSync(s);if(st.isDirectory()){fs.mkdirSync(d,{recursive:true});for(const f of fs.readdirSync(s))cp(path.join(s,f),path.join(d,f))}else if(/\\.(svg|png|json)$/.test(s)){fs.mkdirSync(path.dirname(d),{recursive:true});fs.copyFileSync(s,d)}}cp('nodes','dist/nodes');cp('credentials','dist/credentials');\"",

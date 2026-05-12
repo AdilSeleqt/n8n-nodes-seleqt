@@ -3,6 +3,7 @@
 tsconfig.json
 .gitignore
 .git/
+.github/
 node_modules/
 nodes/
 credentials/

@@ -1,16 +1,5 @@
 import type { INodeProperties } from 'n8n-workflow';
 
-/**
- * Prospect resource — operations and fields.
- *
- * Currently exposes the public filter/search endpoint at
- * `POST /api/v1/public/prospects/search/`. The full
- * `filters` object is intentionally a JSON parameter rather than a
- * pre-modelled form: the search-filter shape grows often (RocketReach
- * fields, custom field overrides, etc.), and locking it into a
- * declarative `collection` would force a node release on every new
- * filter the customer wants to drive from a workflow.
- */
 export const prospectOperations: INodeProperties[] = [
 	{
 		displayName: 'Operation',

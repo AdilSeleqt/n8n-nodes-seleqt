@@ -1,91 +1,117 @@
 # n8n-nodes-seleqt
 
-n8n community node for [Seleqt](https://seleqt.ai) — the #1 lead generation tool. Connect Seleqt's lead generation, enrichment, campaign management, and inbox capabilities to your n8n workflows.
 
-> **Status:** v0.2 (early access). Action node covers Campaign + Lead List + Prospect + Inbox basics; the Trigger node and webhook events land in v0.4 once the backend webhook subscription system ships (SQ26-226 Ticket C).
+Official [n8n](https://n8n.io) community node for [Seleqt](https://seleqt.ai) — the #1 LinkedIn lead generation platform. Automate your outreach pipelines by connecting Seleqt's lead generation, enrichment, campaign management, and inbox directly inside your n8n workflows.
+
+---
+
+## Features
+
+- **Campaigns** — create, update, and retrieve campaigns and their analytics
+- **Lead Lists** — build lists, add leads, enrich profiles, and move leads into campaigns
+- **Prospect Search** — search and filter prospects from the Seleqt database
+- **Inbox** — send messages to prospects programmatically
+
+---
 
 ## Installation
 
-### From npm (once published)
+### n8n Cloud / Self-hosted UI
 
-In your n8n instance: **Settings → Community Nodes → Install**, then enter:
+1. Go to **Settings → Community Nodes**
+2. Click **Install**
+3. Enter `n8n-nodes-seleqt` and confirm
 
-```
-n8n-nodes-seleqt
-```
+The Seleqt node will appear in the node panel under **Transform**.
 
-### From GitHub (testing pre-release builds)
-
-```bash
-# Inside your n8n install directory
-npm install github:AdilSeleqt/n8n-nodes-seleqt
-```
-
-Then restart n8n. The Seleqt node appears in the node panel under "Transform".
-
-### Self-hosted Docker n8n
-
-Mount the package into the container's user nodes folder:
+### Self-hosted Docker
 
 ```bash
-docker exec -u node n8n-container npm install github:AdilSeleqt/n8n-nodes-seleqt
-docker restart n8n-container
+docker exec -u node <your-n8n-container> npm install n8n-nodes-seleqt
+docker restart <your-n8n-container>
 ```
 
-## Setup
+---
 
-1. Generate an API key in Seleqt: **Settings → API Keys → New key**.
-2. In n8n, open any workflow and add the **Seleqt** node.
-3. Click **Credentials → New** and paste the API key.
-4. Leave **Base URL** at the default (`https://api.seleqt.ai/api/v1`) unless you're on staging or self-hosted Seleqt. (`app.seleqt.ai` is the SPA frontend; the JSON API lives at `api.seleqt.ai`.)
-5. n8n's "Test" button confirms the key is live before you save.
+## Credentials
 
-## Operations (v0.2)
+1. Log in to [Seleqt](https://seleqt.ai) and go to **Settings → API Keys → New key**
+2. In n8n, open any workflow and add the **Seleqt** node
+3. Click **Credential → Create New**
+4. Paste your API key and click **Test** to verify
 
-| Resource | Operation | API endpoint |
-|---|---|---|
-| Campaign | Get Many | `GET /public/campaigns/` |
-| Campaign | Get | `GET /public/campaigns/:id/` |
-| Campaign | Create | `POST /public/campaigns/` |
-| Campaign | Update | `PATCH /public/campaigns/:id/` |
-| Campaign | Get Stats | `GET /public/campaigns/:id/analytics/` |
-| Campaign | Get Steps | `GET /public/campaigns/:id/steps/` |
-| Lead List | Get Many | `GET /public/lead-lists/` |
-| Lead List | Get Leads | `GET /public/lead-lists/:id/leads/` |
-| Lead List | Create | `POST /public/lead-lists/` |
-| Lead List | Add Leads | `POST /public/lead-lists/:id/add-leads/` |
-| Lead List | Move to Campaign | `POST /public/lead-lists/:id/move-to-campaign/` |
-| Lead List | Enrich | `POST /public/lead-lists/:id/enrichment/` |
-| Prospect | Search | `POST /public/prospects/search/` |
-| Inbox | Send Message | `POST /public/chats/:prospect_id/send-message/` |
+> The Base URL defaults to `https://api.seleqt.ai/api/v1`. Only change this if you are on a self-hosted Seleqt instance.
 
-## Roadmap
+---
 
-Tracked in [SQ26-226](https://github.com/AdilSeleqt/seleqt-sales/blob/main/docs/sq26-226-n8n-integration-plan.md):
+## Supported Operations
 
-- v0.1 — Campaign Get Many ✅
-- **v0.2 — Campaign + Lead List + Prospect + Inbox surface (you are here)**
-- v0.3 — Lead-level CRUD, Workspace resource (depends on Ticket B backend)
-- v0.4 — Trigger node + webhook subscriptions (depends on Ticket C backend)
-- v1.0 — n8n marketplace partner verification + 5 workflow templates
+### Campaign
+
+| Operation | Description |
+|-----------|-------------|
+| Get Many | List all campaigns |
+| Get | Retrieve a single campaign by ID |
+| Create | Create a new campaign |
+| Update | Update campaign details |
+| Get Stats | Retrieve campaign analytics |
+| Get Steps | Retrieve campaign steps |
+
+### Lead List
+
+| Operation | Description |
+|-----------|-------------|
+| Get Many | List all lead lists |
+| Get Leads | Retrieve leads in a list |
+| Create | Create a new lead list |
+| Add Leads | Add leads to an existing list |
+| Move to Campaign | Move leads from a list into a campaign |
+| Enrich | Enrich lead profiles in a list |
+
+### Prospect
+
+| Operation | Description |
+|-----------|-------------|
+| Search | Search and filter prospects |
+
+### Inbox
+
+| Operation | Description |
+|-----------|-------------|
+| Send Message | Send a message to a prospect |
+
+---
+
+## API Reference
+
+Full API documentation: [https://docs.seleqt.ai](https://docs.seleqt.ai)
+
+---
 
 ## Development
 
 ```bash
 npm install
-npm run build         # one-shot TypeScript compile + asset copy
-npm run dev           # watch mode
-npm run lint          # n8n-nodes-base ruleset
-npm run lintfix       # autofix where possible
+npm run build       # compile TypeScript + copy assets
+npm run dev         # watch mode
+npm run lint        # run n8n-nodes-base linting rules
+npm run lintfix     # auto-fix lint issues
 ```
 
-To load a local build into a running n8n instance, point your n8n's `~/.n8n/custom` directory at this package or use:
+To test locally inside a running n8n instance:
 
 ```bash
-cd ~/.n8n/custom
-npm link n8n-nodes-seleqt   # after `npm link` in this repo
+# In this repo
+npm link
+
+# In your n8n custom nodes directory (~/.n8n/custom)
+npm link n8n-nodes-seleqt
 ```
+
+Then restart n8n.
+
+---
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+[MIT](./LICENSE) © Seleqt

@@ -1,16 +1,5 @@
 import type { INodeProperties } from 'n8n-workflow';
 
-/**
- * Lead List resource — operations and fields.
- *
- * Maps to `/api/v1/public/lead-lists/...`. In Seleqt's domain model
- * a "lead list" is the saved-search container that holds the
- * prospects/companies the user has filtered into one place; it's the
- * stepping stone between Prospect Search and Campaign.
- *
- * Typical n8n workflow shape:
- *   Prospect Search → Lead List Add Leads → Lead List Move to Campaign
- */
 export const leadListOperations: INodeProperties[] = [
 	{
 		displayName: 'Operation',
@@ -171,12 +160,6 @@ export const leadListFields: INodeProperties[] = [
 	},
 
 	// ─── Add Leads ────────────────────────────────────────────
-	// Names are scoped (`addProspectIds` / `addCompanyIds`) rather than
-	// the natural `prospectIds` so they don't collide with the same
-	// concept in `moveToCampaign` below. n8n's parameter validator
-	// doesn't fully respect `displayOptions` when two properties share
-	// a name + `required`, which surfaces as a phantom "X is required"
-	// error on whichever variant the user sees first.
 	{
 		displayName: 'Prospect IDs',
 		name: 'addProspectIds',
@@ -209,9 +192,6 @@ export const leadListFields: INodeProperties[] = [
 	},
 
 	// ─── Move to Campaign ─────────────────────────────────────
-	// `targetCampaignId` instead of `campaignId` to avoid the same
-	// validator collision that the Campaign resource's `campaignId`
-	// (Get / Get Stats / Get Steps / Update) would otherwise create.
 	{
 		displayName: 'Campaign ID',
 		name: 'targetCampaignId',

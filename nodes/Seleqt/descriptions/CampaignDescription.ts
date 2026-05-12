@@ -1,13 +1,5 @@
 import type { INodeProperties } from 'n8n-workflow';
 
-/**
- * Campaign resource — operations and fields.
- *
- * Backed by `/api/v1/public/campaigns/...` on the Seleqt API. Each
- * operation maps directly to a single endpoint via declarative-style
- * `routing`, so adding a new one is a single property tweak rather
- * than a programmatic execute() change.
- */
 export const campaignOperations: INodeProperties[] = [
 	{
 		displayName: 'Operation',
@@ -146,13 +138,7 @@ export const campaignOperations: INodeProperties[] = [
 
 export const campaignFields: INodeProperties[] = [
 	// ─── Create ───────────────────────────────────────────────
-	// `required: true` is intentionally OFF here (and on every field
-	// scoped by displayOptions). Some n8n runtimes mis-validate
-	// scoped-required parameters and surface a phantom "X is required"
-	// error even when the field carries a value, blocking execution.
-	// The Seleqt API returns a clean 400 if a required field is empty,
-	// so server-side validation covers the same UX without the n8n
-	// quirk firing in our face.
+	// required: true omitted on scoped fields — server returns 400 for empty values.
 	{
 		displayName: 'Name',
 		name: 'name',
