@@ -1,11 +1,19 @@
 # n8n-nodes-seleqt
 
+<p align="center">
+  <img src="./seleqt-n8n-banner.png" width="80%" />
+</p>
 
-Official [n8n](https://n8n.io) community node for [Seleqt](https://seleqt.ai) — the #1 LinkedIn lead generation platform. Automate your outreach pipelines by connecting Seleqt's lead generation, enrichment, campaign management, and inbox directly inside your n8n workflows.
+Official [n8n](https://n8n.io) node for [Seleqt](https://seleqt.ai) — integrate Seleqt's AI-powered outbound engine directly into n8n to find your ideal buyers from 700M+ contacts, qualify them automatically, and send hyper-personalized messages across LinkedIn and email so you book more meetings without the manual grind.
 
 ---
 
 ## Features
+<p align="center">
+  <img src="./seleqt-n8n-banner2.png" width="23%" />
+  <img src="./seleqt-n8n-banner3.png" width="23%" />
+  <img src="./seleqt-n8n-banner4.png" width="23%" />
+</p>
 
 - **Campaigns** — create, update, and retrieve campaigns and their analytics
 - **Lead Lists** — build lists, add leads, enrich profiles, and move leads into campaigns

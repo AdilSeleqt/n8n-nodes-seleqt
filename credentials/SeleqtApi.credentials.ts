@@ -23,7 +23,7 @@ export class SeleqtApi implements ICredentialType {
 
 	displayName = 'Seleqt API';
 
-	documentationUrl = 'https://docs.seleqt.ai/api/authentication';
+	documentationUrl = 'https://docs.seleqt.ai/getting-started/authentication';
 
 	properties: INodeProperties[] = [
 		{
